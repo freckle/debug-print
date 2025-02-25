@@ -15,7 +15,7 @@ jobs:
         uses: freckle/haskell-tag-action@v1
 
       - if: steps.tag.outputs.tag
-        run: stack upload --pvp-bounds lower debug-print
+        run: stack upload --pvp-bounds lower .
         env:
           HACKAGE_KEY: ${{ secrets.HACKAGE_UPLOAD_API_KEY }}
           STACK_YAML: stack-lts23.yaml
