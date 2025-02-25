@@ -1,0 +1,59 @@
+name: debug-print
+version: 0.0.0.0
+maintainer: Freckle Education
+category: Debug
+github: freckle/debug-print
+synopsis: A structured alternative to Show
+license: MIT
+
+extra-doc-files:
+  - README.md
+  - CHANGELOG.md
+
+dependencies:
+  - base
+
+language: GHC2021
+
+ghc-options:
+  - -Weverything
+  - -Wno-all-missed-specialisations
+  - -Wno-missing-import-lists
+  - -Wno-missing-kind-signatures
+  - -Wno-missing-safe-haskell-mode
+  - -Wno-safe
+  - -Wno-unsafe
+
+when:
+  - condition: "impl(ghc >= 9.8)"
+    ghc-options:
+      - -Wno-missing-role-annotations
+      - -Wno-missing-poly-kind-signatures
+
+default-extensions:
+  - DefaultSignatures
+  - DeriveAnyClass
+  - DerivingVia
+  - NoFieldSelectors
+  - NoImplicitPrelude
+  - NoMonomorphismRestriction
+  - OverloadedStrings
+  - StrictData
+
+library:
+  source-dirs: library
+  dependencies:
+    - aeson
+    - containers
+    - text
+    - vector
+tests:
+  readme:
+    main: README.lhs
+    ghc-options: -pgmL markdown-unlit
+    dependencies:
+      - aeson
+      - debug-print
+      - hspec
+      - markdown-unlit
+      - text

@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "debug-print/library"
+      component: "debug-print:lib"
+
+    - path: "debug-print/./"
+      component: "debug-print:test:readme"
