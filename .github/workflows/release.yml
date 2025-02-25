@@ -13,11 +13,6 @@ jobs:
 
       - id: tag
         uses: freckle/haskell-tag-action@v1
-        with:
-          package-yaml: package.yaml
-          tag-prefix: v
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: steps.tag.outputs.tag
         run: stack upload --pvp-bounds lower debug-print
