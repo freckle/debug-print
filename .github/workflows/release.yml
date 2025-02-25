@@ -8,24 +8,19 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        package:
-          - debug-print
-
     steps:
       - uses: actions/checkout@v4
 
       - id: tag
         uses: freckle/haskell-tag-action@v1
         with:
-          package-yaml: ${{ matrix.package }}/package.yaml
-          tag-prefix: ${{ matrix.package }}-v
+          package-yaml: package.yaml
+          tag-prefix: v
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: steps.tag.outputs.tag
-        run: stack upload --pvp-bounds lower ${{ matrix.package }}
+        run: stack upload --pvp-bounds lower debug-print
         env:
           HACKAGE_KEY: ${{ secrets.HACKAGE_UPLOAD_API_KEY }}
           STACK_YAML: stack-lts23.yaml

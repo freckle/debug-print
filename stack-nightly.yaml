@@ -1,4 +1,1 @@
 resolver: nightly-2025-02-25
-
-packages:
-  - debug-print

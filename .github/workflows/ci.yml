@@ -43,4 +43,4 @@ jobs:
       - uses: haskell/actions/hlint-run@v2
         with:
           fail-on: warning
-          path: '["debug-print/library/"]'
+          path: '["library/"]'
