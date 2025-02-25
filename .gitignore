@@ -1,0 +1,6 @@
+.stack-work
+*.hie
+.hiedb
+.envrc
+.direnv
+dist-newstyle
