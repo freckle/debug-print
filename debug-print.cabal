@@ -1,11 +1,11 @@
-cabal-version: 1.18
+cabal-version: 2.0
 
 -- This file has been generated from package.yaml by hpack version 0.37.0.
 --
 -- see: https://github.com/sol/hpack
 
 name:           debug-print
-version:        0.0.0.0
+version:        0.1.0.0
 synopsis:       A structured alternative to Show
 category:       Debug
 homepage:       https://github.com/freckle/debug-print#readme
@@ -27,10 +27,13 @@ library
       DebugPrint
       DebugPrint.Aeson
       DebugPrint.Class
+      DebugPrint.Integer
       DebugPrint.Show
       DebugPrint.Tagged
       DebugPrint.Types
   other-modules:
+      Paths_debug_print
+  autogen-modules:
       Paths_debug_print
   hs-source-dirs:
       library
@@ -46,7 +49,35 @@ library
   ghc-options: -Weverything -Wno-all-missed-specialisations -Wno-missing-import-lists -Wno-missing-kind-signatures -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe
   build-depends:
       aeson
-    , base
+    , base <5
+    , containers
+    , internal
+    , text
+  default-language: GHC2021
+  if impl(ghc >= 9.8)
+    ghc-options: -Wno-missing-role-annotations -Wno-missing-poly-kind-signatures
+
+library internal
+  exposed-modules:
+      DebugPrint.Core
+  other-modules:
+      Paths_debug_print
+  autogen-modules:
+      Paths_debug_print
+  hs-source-dirs:
+      internal
+  default-extensions:
+      DefaultSignatures
+      DeriveAnyClass
+      DerivingVia
+      NoFieldSelectors
+      NoImplicitPrelude
+      NoMonomorphismRestriction
+      OverloadedStrings
+      StrictData
+  ghc-options: -Weverything -Wno-all-missed-specialisations -Wno-missing-import-lists -Wno-missing-kind-signatures -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe
+  build-depends:
+      base <5
     , containers
     , text
     , vector
@@ -58,6 +89,8 @@ test-suite readme
   type: exitcode-stdio-1.0
   main-is: README.lhs
   other-modules:
+      Paths_debug_print
+  autogen-modules:
       Paths_debug_print
   default-extensions:
       DefaultSignatures
@@ -71,7 +104,7 @@ test-suite readme
   ghc-options: -Weverything -Wno-all-missed-specialisations -Wno-missing-import-lists -Wno-missing-kind-signatures -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -pgmL markdown-unlit
   build-depends:
       aeson
-    , base
+    , base <5
     , debug-print
     , hspec
     , markdown-unlit

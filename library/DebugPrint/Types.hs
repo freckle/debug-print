@@ -7,23 +7,4 @@ module DebugPrint.Types
   , DebugPrintValue (..)
   ) where
 
-import Prelude
-
-import Data.Map (Map)
-import Data.String (IsString (..))
-import Data.Text (Text)
-import Data.Text qualified as T
-import Data.Vector (Vector)
-
-newtype DebugPrintRecord = DebugPrintRecord (Map Text DebugPrintValue)
-  deriving newtype (Monoid, Semigroup)
-
-data DebugPrintValue
-  = DebugPrintValueInt Int
-  | DebugPrintValueText Text
-  | DebugPrintValueBool Bool
-  | DebugPrintValueVector (Vector DebugPrintValue)
-  | DebugPrintValueRecord DebugPrintRecord
-
-instance IsString DebugPrintValue where
-  fromString = DebugPrintValueText . T.pack
+import DebugPrint.Core
