@@ -5,7 +5,7 @@ cabal-version: 2.0
 -- see: https://github.com/sol/hpack
 
 name:           debug-print
-version:        0.1.0.0
+version:        0.2.0.0
 synopsis:       A structured alternative to Show
 category:       Debug
 homepage:       https://github.com/freckle/debug-print#readme
@@ -108,6 +108,35 @@ test-suite readme
     , debug-print
     , hspec
     , markdown-unlit
+    , text
+  default-language: GHC2021
+  if impl(ghc >= 9.8)
+    ghc-options: -Wno-missing-role-annotations -Wno-missing-poly-kind-signatures
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_debug_print
+  autogen-modules:
+      Paths_debug_print
+  hs-source-dirs:
+      tests
+  default-extensions:
+      DefaultSignatures
+      DeriveAnyClass
+      DerivingVia
+      NoFieldSelectors
+      NoImplicitPrelude
+      NoMonomorphismRestriction
+      OverloadedStrings
+      StrictData
+  ghc-options: -Weverything -Wno-all-missed-specialisations -Wno-missing-import-lists -Wno-missing-kind-signatures -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe
+  build-depends:
+      aeson-qq
+    , base <5
+    , debug-print
+    , hspec
     , text
   default-language: GHC2021
   if impl(ghc >= 9.8)

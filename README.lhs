@@ -26,13 +26,15 @@ import Data.Aeson qualified as Aeson
 data Report = Report
   { milliseconds :: Int
   , errors :: [Text]
+  , fileName :: Maybe Text
   }
   deriving stock Generic
   deriving anyclass (ToDebugPrintRecord, ToDebugPrintValue)
 
 report :: Report
 report = Report{ milliseconds = 5_824
-               , errors = ["Warning! Problems."] }
+                , errors = ["Warning! Problems."]
+                , fileName = Nothing }
 ```
 
 ```haskell
