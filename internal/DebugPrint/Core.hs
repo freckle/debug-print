@@ -134,7 +134,11 @@ instance ToDebugPrintRecordRep f => ToDebugPrintRecordRep (C1 i f) where
   gToRecord (M1 x) = gToRecord x
 
 instance (Selector s, ToDebugPrintValueRep f) => ToDebugPrintRecordRep (S1 s f) where
-  gToRecord s1@(M1 x) = DebugPrintRecord $ Map.singleton (T.pack (selName s1)) (gToValue x)
+  gToRecord s1@(M1 x) = DebugPrintRecord $ case gToValue x of
+    DebugPrintValueText y | T.null y -> Map.empty
+    DebugPrintValueVector y | V.null y -> Map.empty
+    DebugPrintValueRecord (DebugPrintRecord y) | Map.null y -> Map.empty
+    y -> Map.singleton (T.pack (selName s1)) y
 
 ---
 

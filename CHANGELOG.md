@@ -1,6 +1,12 @@
-## [_Unreleased_](https://github.com/freckle/debug-print/compare/v0.1.0.0...main)
+## [_Unreleased_](https://github.com/freckle/debug-print/compare/v0.2.0.0...main)
 
-## [v0.1.0.0](https://github.com/freckle/nonempty-zipper/compare/v0.0.0.0...v0.1.0.0)
+## [v0.2.0.0](https://github.com/freckle/debug-print/compare/v0.2.0.0...v0.2.0.0)
+
+To reduce clutter in output, the default `Generic`-derived `ToDebugPrintRecord`
+instance now elides any field whose values is empty text, an empty list, or an
+empty object.
+
+## [v0.1.0.0](https://github.com/freckle/debug-print/compare/v0.0.0.0...v0.1.0.0)
 
 The parameter of `DebugPrintValueInt` is changed from `Int` to `Integer`.
 
