@@ -1,5 +1,5 @@
 name: debug-print
-version: 0.2.0.1
+version: 0.2.1.0
 maintainer: Freckle Education
 category: Debug
 github: freckle/debug-print
@@ -34,6 +34,7 @@ default-extensions:
   - DefaultSignatures
   - DeriveAnyClass
   - DerivingVia
+  - LambdaCase
   - NoFieldSelectors
   - NoImplicitPrelude
   - NoMonomorphismRestriction
@@ -52,7 +53,9 @@ internal-libraries:
   internal:
     source-dirs: internal
     dependencies:
+      - aeson
       - containers
+      - scientific
       - text
       - vector
 

@@ -1,4 +1,13 @@
-## [_Unreleased_](https://github.com/freckle/debug-print/compare/v0.2.0.1...main)
+## [_Unreleased_](https://github.com/freckle/debug-print/compare/v0.2.1.0...main)
+
+## [v0.2.1.0](https://github.com/freckle/debug-print/compare/v0.2.0.1...v0.2.1.0)
+
+Add instances for `aeson` types:
+
+- `instance ToDebugPrintValue Key`
+- `instance ToDebugPrintValue Value`
+- `instance ToDebugPrintValue Object`
+- `instance ToDebugPrintRecord Object`
 
 ## [v0.2.0.1](https://github.com/freckle/debug-print/compare/v0.2.0.0...v0.2.0.1)
 

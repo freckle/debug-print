@@ -5,7 +5,7 @@ cabal-version: 2.0
 -- see: https://github.com/sol/hpack
 
 name:           debug-print
-version:        0.2.0.0
+version:        0.2.1.0
 synopsis:       A structured alternative to Show
 category:       Debug
 homepage:       https://github.com/freckle/debug-print#readme
@@ -41,6 +41,7 @@ library
       DefaultSignatures
       DeriveAnyClass
       DerivingVia
+      LambdaCase
       NoFieldSelectors
       NoImplicitPrelude
       NoMonomorphismRestriction
@@ -70,6 +71,7 @@ library internal
       DefaultSignatures
       DeriveAnyClass
       DerivingVia
+      LambdaCase
       NoFieldSelectors
       NoImplicitPrelude
       NoMonomorphismRestriction
@@ -77,8 +79,10 @@ library internal
       StrictData
   ghc-options: -Weverything -Wno-all-missed-specialisations -Wno-missing-import-lists -Wno-missing-kind-signatures -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe
   build-depends:
-      base <5
+      aeson
+    , base <5
     , containers
+    , scientific
     , text
     , vector
   default-language: GHC2021
@@ -96,6 +100,7 @@ test-suite readme
       DefaultSignatures
       DeriveAnyClass
       DerivingVia
+      LambdaCase
       NoFieldSelectors
       NoImplicitPrelude
       NoMonomorphismRestriction
@@ -126,6 +131,7 @@ test-suite spec
       DefaultSignatures
       DeriveAnyClass
       DerivingVia
+      LambdaCase
       NoFieldSelectors
       NoImplicitPrelude
       NoMonomorphismRestriction
