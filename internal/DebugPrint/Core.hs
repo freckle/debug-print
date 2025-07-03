@@ -57,6 +57,9 @@ class ToDebugPrintValue a where
 instance ToDebugPrintValue DebugPrintValue where
   toDebugPrintValue = id
 
+instance ToDebugPrintValue DebugPrintRecord where
+  toDebugPrintValue = DebugPrintValueRecord
+
 instance ToDebugPrintValue Integer where
   toDebugPrintValue = DebugPrintValueInt
 
