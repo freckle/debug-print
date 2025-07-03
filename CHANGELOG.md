@@ -9,6 +9,8 @@ Add instances for `aeson` types:
 - `instance ToDebugPrintValue Object`
 - `instance ToDebugPrintRecord Object`
 
+Adds `Eq` and `Ord` instances for `ToDebugPrintValue` and `ToDebugPrintRecord`
+
 ## [v0.2.0.1](https://github.com/freckle/debug-print/compare/v0.2.0.0...v0.2.0.1)
 
 Relax lower dependency bounds

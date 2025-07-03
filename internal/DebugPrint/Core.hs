@@ -33,7 +33,7 @@ import GHC.Generics
 import Numeric.Natural (Natural)
 
 newtype DebugPrintRecord = DebugPrintRecord (Map Text DebugPrintValue)
-  deriving newtype (Monoid, Semigroup)
+  deriving newtype (Eq, Monoid, Ord, Semigroup)
 
 data DebugPrintValue
   = DebugPrintValueInt Integer
@@ -41,6 +41,7 @@ data DebugPrintValue
   | DebugPrintValueBool Bool
   | DebugPrintValueVector (Vector DebugPrintValue)
   | DebugPrintValueRecord DebugPrintRecord
+  deriving stock (Eq, Ord)
 
 instance IsString DebugPrintValue where
   fromString = DebugPrintValueText . T.pack
