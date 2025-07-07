@@ -11,12 +11,16 @@ module DebugPrint.Core
 
 import Prelude
 
+import Data.Aeson qualified as Aeson
+import Data.Aeson.Key qualified as Aeson.Key
+import Data.Aeson.KeyMap qualified as Aeson.KeyMap
 import Data.Foldable (toList)
 import Data.Int
 import Data.Kind (Type)
 import Data.List.NonEmpty (NonEmpty)
 import Data.Map (Map)
 import Data.Map.Strict qualified as Map
+import Data.Scientific qualified as Scientific
 import Data.Sequence (Seq)
 import Data.String (IsString (..))
 import Data.Text (Text)
@@ -29,7 +33,7 @@ import GHC.Generics
 import Numeric.Natural (Natural)
 
 newtype DebugPrintRecord = DebugPrintRecord (Map Text DebugPrintValue)
-  deriving newtype (Monoid, Semigroup)
+  deriving newtype (Eq, Monoid, Ord, Semigroup)
 
 data DebugPrintValue
   = DebugPrintValueInt Integer
@@ -37,6 +41,7 @@ data DebugPrintValue
   | DebugPrintValueBool Bool
   | DebugPrintValueVector (Vector DebugPrintValue)
   | DebugPrintValueRecord DebugPrintRecord
+  deriving stock (Eq, Ord)
 
 instance IsString DebugPrintValue where
   fromString = DebugPrintValueText . T.pack
@@ -51,6 +56,9 @@ class ToDebugPrintValue a where
 
 instance ToDebugPrintValue DebugPrintValue where
   toDebugPrintValue = id
+
+instance ToDebugPrintValue DebugPrintRecord where
+  toDebugPrintValue = DebugPrintValueRecord
 
 instance ToDebugPrintValue Integer where
   toDebugPrintValue = DebugPrintValueInt
@@ -94,6 +102,27 @@ instance ToDebugPrintValue a => ToDebugPrintValue (Seq a) where
 instance ToDebugPrintValue a => ToDebugPrintValue (Vector a) where
   toDebugPrintValue = DebugPrintValueVector . fmap toDebugPrintValue
 
+instance ToDebugPrintValue Aeson.Key where
+  toDebugPrintValue = DebugPrintValueText . Aeson.Key.toText
+
+instance ToDebugPrintValue Aeson.Value where
+  toDebugPrintValue = \case
+    Aeson.Object x -> DebugPrintValueRecord $ toDebugPrintRecord x
+    Aeson.Array x -> DebugPrintValueVector $ fmap toDebugPrintValue x
+    Aeson.String x -> DebugPrintValueText $ T.unwords ["(string)", x]
+    Aeson.Number x ->
+      -- Since JSON numbers support scientific notation, an exponential form may
+      -- represent an unreasonably large integer. Int64 is an arbitrary limit on
+      -- the size of integer we're willing to expand.
+      case Scientific.toBoundedInteger @Int64 x of
+        Just i -> DebugPrintValueInt $ toInteger i
+        Nothing -> DebugPrintValueText $ T.unwords ["(number)", T.pack $ show x]
+    Aeson.Bool x -> DebugPrintValueBool x
+    Aeson.Null -> DebugPrintValueText "(null)"
+
+instance ToDebugPrintValue Aeson.Object where
+  toDebugPrintValue = DebugPrintValueRecord . toDebugPrintRecord
+
 ---
 
 class ToDebugPrintRecord a where
@@ -104,6 +133,9 @@ class ToDebugPrintRecord a where
 
 instance ToDebugPrintRecord DebugPrintRecord where
   toDebugPrintRecord = id
+
+instance ToDebugPrintRecord Aeson.Object where
+  toDebugPrintRecord = DebugPrintRecord . fmap toDebugPrintValue . Aeson.KeyMap.toMapText
 
 ---
 
