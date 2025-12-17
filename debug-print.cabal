@@ -1,11 +1,11 @@
 cabal-version: 2.0
 
--- This file has been generated from package.yaml by hpack version 0.37.0.
+-- This file has been generated from package.yaml by hpack version 0.38.1.
 --
 -- see: https://github.com/sol/hpack
 
 name:           debug-print
-version:        0.2.1.0
+version:        0.2.2.0
 synopsis:       A structured alternative to Show
 category:       Debug
 homepage:       https://github.com/freckle/debug-print#readme

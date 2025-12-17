@@ -28,6 +28,7 @@ import Data.Text qualified as T
 import Data.Text.Lazy qualified as TL
 import Data.Vector (Vector)
 import Data.Vector qualified as V
+import Data.Void (Void, absurd)
 import Data.Word
 import GHC.Generics
 import Numeric.Natural (Natural)
@@ -53,6 +54,9 @@ class ToDebugPrintValue a where
   default toDebugPrintValue
     :: (Generic a, ToDebugPrintRecordRep (Rep a)) => a -> DebugPrintValue
   toDebugPrintValue = DebugPrintValueRecord . gToRecord . from
+
+instance ToDebugPrintValue Void where
+  toDebugPrintValue = absurd
 
 instance ToDebugPrintValue DebugPrintValue where
   toDebugPrintValue = id
@@ -130,6 +134,9 @@ class ToDebugPrintRecord a where
   default toDebugPrintRecord
     :: (Generic a, ToDebugPrintRecordRep (Rep a)) => a -> DebugPrintRecord
   toDebugPrintRecord = gToRecord . from
+
+instance ToDebugPrintRecord Void where
+  toDebugPrintRecord = absurd
 
 instance ToDebugPrintRecord DebugPrintRecord where
   toDebugPrintRecord = id
