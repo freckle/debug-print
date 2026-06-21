@@ -76,5 +76,6 @@ tests:
       - aeson
       - debug-print
       - hspec
-      - markdown-unlit
       - text
+    build-tools:
+      - markdown-unlit
