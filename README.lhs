@@ -11,7 +11,6 @@ import Prelude
 
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Text.Markdown.Unlit ()
 import Test.Hspec
 ```
 -->
