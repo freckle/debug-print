@@ -107,12 +107,13 @@ test-suite readme
       OverloadedStrings
       StrictData
   ghc-options: -Weverything -Wno-all-missed-specialisations -Wno-missing-import-lists -Wno-missing-kind-signatures -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -pgmL markdown-unlit
+  build-tool-depends:
+      markdown-unlit:markdown-unlit
   build-depends:
       aeson
     , base <5
     , debug-print
     , hspec
-    , markdown-unlit
     , text
   default-language: GHC2021
   if impl(ghc >= 9.8)
